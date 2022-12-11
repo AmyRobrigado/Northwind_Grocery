@@ -29,12 +29,39 @@
           </nav>
     </header>
     <main>
+      <!-- Select  -->
         <div class="container">
             <div class="row">
-                <select class="form-select" aria-label="defaultSelect" id="oneSlct"></select>
-                <select class="form-select" aria-label="defaultSelect" id="categorySlct"></select>
-                <select class="form-select" aria-label="defaultSelect" id="viewAll"></select>
+              <div>
+                <form class="mb-3 mt-3">
+                  <select class="form-select" aria-label="defaultSelect" id="oneSlct"></select>
+                </form>
+              </div>
+            
+                <div id="categoryContainer">
+                  <form class="mb-3 mt-1">
+                    <select class="form-select" aria-label="defaultSelect" id="categorySlct"></select>
+                  </form>
+                </div>
+        
             </div>
+        </div>
+
+        <div class="container">
+          <table class="table table-dark table-striped">
+            <thead>
+              <tr>
+                <th scope="col">Product Name</th>
+                <th scope="col">Unit Price</th>
+                <th scope="col">Stock</th>
+                <th scope="col">Supplier</th>
+                <th scope="col">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              
+            </tbody>
+          </table>
         </div>
     </main>
     <script src="/scripts/products_search.js"></script>
