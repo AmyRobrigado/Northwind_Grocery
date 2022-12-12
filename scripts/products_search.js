@@ -3,15 +3,16 @@
 window.onload = function () {
     multiSelectDropDown();
     searchByCategory();
-    
+
     showCategorySearch();
     hideCategorySearch();
-    hideMultiSelect(); 
+    hideMultiSelect();
     showMultiSelect();
-    showTable(); 
+    showTable();
     hideTable();
 
     document.getElementById("oneSlct").onchange = selectOneOnChange;
+    document.getElementById("categorySlct").onchange = categoryOnChange; 
     document.getElementById("clearBtn").onclick = clearButton;
 }
 
@@ -21,8 +22,9 @@ function multiSelectDropDown() {
     let categoryOption = document.createElement("option");
     let selectOneOption = document.createElement("option");
 
+    categoryOption.value = "Search By Category";
+    multiOption.value = "View All";
 
-    multiOption.value = "";
     selectOneOption.textContent = "Select One...";
     categoryOption.textContent = "Search by Category";
     multiOption.textContent = "View All";
@@ -71,61 +73,70 @@ function hideMultiSelect() {
     document.getElementById("oneSlct").style.display = "none";
 }
 
-function showTable(){
-    document.getElementById("tableContainer").style.display = "block"; 
+function showTable() {
+    document.getElementById("tableContainer").style.display = "block";
 }
 
-function hideTable(){
-    document.getElementById("tableContainer").style.display = "none"; 
+function hideTable() {
+    document.getElementById("tableContainer").style.display = "none";
 }
+
+function categoryOnChange(){
+    let filterCategory = document.getElementById("categorySlct").value; 
+    const catTable = document.getElementById("catBody"); 
+    catTable.innerHTML = "";
+}
+// If category id # matches, then show the items with that id 
 
 function selectOneOnChange() {
     let multiCategory = document.getElementById("oneSlct").value;
-    if (multiCategory == "Search by Category"){
+    if (multiCategory == "Search By Category") {
         showCategorySearch();
-        hideMultiSelect();  
+        hideMultiSelect();
         hideTable();
     }
 
-    else (multiCategory == "View All");{
-    const tableBody = document.getElementById("tbody");
-    tableBody.innerHTML = "";
+    else if (multiCategory == "View All") {
+        const tableBody = document.getElementById("tbody");
+        tableBody.innerHTML = "";
 
-    fetch("http://localhost:8081/api/products")
-        .then(response => response.json())
-        .then(products => {
-            for (let p in products) {
-                let tableRow = document.createElement("tr");
+        fetch("http://localhost:8081/api/products")
+            .then(response => response.json())
+            .then(products => {
+                for (let p in products) {
+                    let tableRow = document.createElement("tr");
 
-                tableBody.appendChild(tableRow);
-                //-----------------------------------
+                    tableBody.appendChild(tableRow);
+                    //-----------------------------------
 
-                let productName = document.createElement("td");
-                productName.innerHTML = products[p].productName;
-                tableRow.appendChild(productName);
+                    let productName = document.createElement("td");
+                    productName.innerHTML = products[p].productName;
+                    tableRow.appendChild(productName);
 
-                let unitPrice = document.createElement("td");
-                unitPrice.innerHTML = products[p].unitPrice;
-                tableRow.appendChild(unitPrice);
+                    let unitPrice = document.createElement("td");
+                    unitPrice.innerHTML = products[p].unitPrice;
+                    tableRow.appendChild(unitPrice);
 
-                let inStock = document.createElement("td");
-                inStock.innerHTML = products[p].unitsInStock;
-                tableRow.appendChild(inStock);
+                    let inStock = document.createElement("td");
+                    inStock.innerHTML = products[p].unitsInStock;
+                    tableRow.appendChild(inStock);
 
-                let supplier = document.createElement("td");
-                supplier.innerHTML = products[p].supplier;
-                tableRow.appendChild(supplier);
+                    let supplier = document.createElement("td");
+                    supplier.innerHTML = products[p].supplier;
+                    tableRow.appendChild(supplier);
 
-                let discontinue = document.createElement("td");
-                discontinue.innerHTML = products[p].discontinued;
-                tableRow.appendChild(discontinue);
+                    let discontinue = document.createElement("td");
+                    discontinue.innerHTML = products[p].discontinued;
+                    tableRow.appendChild(discontinue);
 
-                showTable();
-            }
-        })
+                    showTable();
+                }
+            })
     }
-    
+
 }
+
+
 
 function clearButton() {
     document.getElementById("oneSlct").value = "Select One...";
