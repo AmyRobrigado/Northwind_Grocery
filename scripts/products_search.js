@@ -3,14 +3,13 @@
 window.onload = function () {
     multiSelectDropDown();
     searchByCategory();
-
+    
     showCategorySearch();
     hideCategorySearch();
     hideMultiSelect(); 
     showMultiSelect();
     showTable(); 
     hideTable();
-    
 
     document.getElementById("oneSlct").onchange = selectOneOnChange;
     document.getElementById("clearBtn").onclick = clearButton;
@@ -90,6 +89,7 @@ function selectOneOnChange() {
 
     else (multiCategory == "View All");{
     const tableBody = document.getElementById("tbody");
+    tableBody.innerHTML = "";
 
     fetch("http://localhost:8081/api/products")
         .then(response => response.json())
